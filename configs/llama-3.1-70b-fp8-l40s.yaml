@@ -1,0 +1,28 @@
+model_id: neuralmagic/Meta-Llama-3.1-70B-Instruct-FP8
+llm_engine: vllm
+accelerator_type: L40S
+engine_kwargs:
+  tensor_parallel_size: 1
+  pipeline_parallel_size: 2
+  max_num_seqs: 128
+  use_v2_block_manager: True
+  enable_prefix_caching: False
+  preemption_mode: "recompute"
+  block_size: 16
+  kv_cache_dtype: "auto"
+  enforce_eager: True
+  gpu_memory_utilization: 0.95
+  enable_chunked_prefill: True
+  max_num_batched_tokens: 256
+  max_seq_len_to_capture: 32768
+  dtype: float16
+runtime_env:
+  env_vars:
+    vllm_configure_logging: 1
+    vllm_use_ray_compiled_dag: 1
+    vllm_use_ray_spmd_worker: 1
+    vllm_use_ray_compiled_dag_nccl_channel: 1
+    enable_anyscale_prefix_optimizations: "0"
+    vllm_attn_backend: "FLASH_ATTN"
+    vllm_disable_logprobs: 1
+
